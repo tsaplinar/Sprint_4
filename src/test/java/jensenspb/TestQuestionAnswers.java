@@ -32,7 +32,7 @@ public class TestQuestionAnswers {
         driver = new ChromeDriver(options);
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Тестовые данные: {0}")
     public static Question[] getQuestions() {
         return HomePageScooter.getHomePageQuestions();
     }

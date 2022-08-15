@@ -10,7 +10,7 @@ public class HomePageScooter {
     private WebDriver driver;
 
 
-    public HomePageScooter(WebDriver driver){
+    public HomePageScooter(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -21,10 +21,10 @@ public class HomePageScooter {
     private By questionsAreaHeader = By.cssSelector("#root > div > div > div.Home_FourPart__1uthg");
 
     //Верхняя кнопка зазать
-    private By headerOrderButton = By.xpath("//*[@id=\"root\"]/div/div/div[1]/div[2]/button[1]");
+    private By headerOrderButton = By.cssSelector("[class='Header_Nav__AGCXC']>[class='Button_Button__ra12g']");
 
     //Кнопка заказать на домашней странице внизу
-    private By homeOrderButton = By.xpath("//*[@id=\"root\"]/div/div/div[4]/div[2]/div[5]/button");
+    private By homeOrderButton = By.cssSelector("div.Home_FinishButton__1_cWm > button");
 
     //Кнопки вопроса и ответа
     private static final Question[] questions = new Question[]{
@@ -60,19 +60,22 @@ public class HomePageScooter {
                     By.xpath("//*[@id=\"accordion__heading-4\"]"),
                     By.xpath("//*[@id=\"accordion__panel-4\"]//p"),
                     "Можно ли продлить заказ или вернуть самокат раньше?",
-                    "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."
+                    "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому " +
+                            "номеру 1010."
             ),
             new Question(
                     By.xpath("//*[@id=\"accordion__heading-5\"]"),
                     By.xpath("//*[@id=\"accordion__panel-5\"]//p"),
                     "Вы привозите зарядку вместе с самокатом?",
-                    "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."
+                    "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если " +
+                            "будете кататься без передышек и во сне. Зарядка не понадобится."
             ),
             new Question(
                     By.xpath("//*[@id=\"accordion__heading-6\"]"),
                     By.xpath("//*[@id=\"accordion__panel-6\"]//p"),
                     "Можно ли отменить заказ?",
-                    "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."
+                    "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. " +
+                            "Все же свои."
             ),
             new Question(
                     By.xpath("//*[@id=\"accordion__heading-7\"]"),
@@ -82,18 +85,21 @@ public class HomePageScooter {
             ),
     };
 
-    public void acceptCookies(){
+    public void acceptCookies() {
         driver.findElement(acceptCookiesButton).click();
     }
 
-    public void waitForAnswersComponent(){
-        new WebDriverWait(driver,5).until(ExpectedConditions.visibilityOfElementLocated(questionsAreaHeader));
+    public void waitForAnswersComponent() {
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.visibilityOfElementLocated(questionsAreaHeader));
     }
-    public String clickHeaderOrderButtonGetUrl(){
+
+    public String clickHeaderOrderButtonGetUrl() {
         driver.findElement(headerOrderButton).click();
         return driver.getCurrentUrl();
     }
-    public String clickHomeOrderButtonGetUrl(){
+
+    public String clickHomeOrderButtonGetUrl() {
         driver.findElement(homeOrderButton).click();
         return driver.getCurrentUrl();
     }
@@ -101,13 +107,15 @@ public class HomePageScooter {
     public static Question[] getHomePageQuestions() {
         return HomePageScooter.questions;
     }
+
     public String getQuestionText(Question question) {
         return driver.findElement(question.getQuestionSelector()).getText();
     }
 
     public String getAnswerText(Question question) {
         driver.findElement(question.getQuestionSelector()).click();
-        new WebDriverWait(driver,3).until(ExpectedConditions.visibilityOfElementLocated(question.getAnswerSelector()));
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.visibilityOfElementLocated(question.getAnswerSelector()));
         return driver.findElement(question.getAnswerSelector()).getText();
     }
 
