@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class HomePageScooter {
     private WebDriver driver;
 
-
     public HomePageScooter(WebDriver driver) {
         this.driver = driver;
     }

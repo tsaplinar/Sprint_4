@@ -8,7 +8,6 @@ public class OrderPageScooter {
 
     private WebDriver driver;
 
-
     public OrderPageScooter(WebDriver driver) {
         this.driver = driver;
     }
